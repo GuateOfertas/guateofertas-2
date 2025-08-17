@@ -1,0 +1,28 @@
+{
+  "name": "GuateOfertas.com - Tu Tienda Online de Confianza",
+  "short_name": "GuateOfertas",
+  "description": "Las mejores ofertas de Guatemala. Productos de calidad con envío a todo el país.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00B7D4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es-GT",
+  "dir": "ltr",
+  "categories": ["shopping", "business", "finance"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

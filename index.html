@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GuateOfertas.com - Las Mejores Ofertas de Guatemala</title>
+    <meta name="description" content="Descubre las mejores ofertas en Guatemala. Productos de calidad, envío gratis y garantía. Tu tienda online de confianza." />
+    <meta name="keywords" content="ofertas, Guatemala, tienda online, ecommerce, productos, descuentos" />
+    <meta name="author" content="GuateOfertas" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#00B7D4" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="GuateOfertas" />
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/icon-192x192.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="GuateOfertas.com - Las Mejores Ofertas de Guatemala" />
+    <meta property="og:description" content="Descubre las mejores ofertas en Guatemala. Productos de calidad, envío gratis y garantía." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://guateofertas.com" />
+    <meta property="og:image" content="https://guateofertas.com/og-image.jpg" />
+    <meta property="og:locale" content="es_GT" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GuateOfertas.com - Las Mejores Ofertas de Guatemala" />
+    <meta name="twitter:description" content="Descubre las mejores ofertas en Guatemala. Productos de calidad, envío gratis y garantía." />
+    <meta name="twitter:image" content="https://guateofertas.com/og-image.jpg" />
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://guateofertas.com" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Register service worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
