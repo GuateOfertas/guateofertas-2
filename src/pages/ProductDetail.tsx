@@ -117,7 +117,7 @@ const ProductDetail = () => {
           <span className="text-foreground">{product.name}</span>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mb-16">
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
@@ -128,7 +128,7 @@ const ProductDetail = () => {
                 className="w-full h-full object-cover"
               />
               {product.discount && (
-                <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
+                <Badge className="absolute top-2 left-2 lg:top-4 lg:left-4 bg-destructive text-destructive-foreground text-xs lg:text-sm">
                   -{product.discount}%
                 </Badge>
               )}
@@ -137,23 +137,23 @@ const ProductDetail = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 glass-effect"
+                className="absolute left-1 lg:left-2 top-1/2 transform -translate-y-1/2 glass-effect h-8 w-8 lg:h-10 lg:w-10"
                 onClick={() => setSelectedImage(selectedImage > 0 ? selectedImage - 1 : product.images.length - 1)}
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-3 w-3 lg:h-4 lg:w-4" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 glass-effect"
+                className="absolute right-1 lg:right-2 top-1/2 transform -translate-y-1/2 glass-effect h-8 w-8 lg:h-10 lg:w-10"
                 onClick={() => setSelectedImage(selectedImage < product.images.length - 1 ? selectedImage + 1 : 0)}
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-3 w-3 lg:h-4 lg:w-4" />
               </Button>
             </div>
             
             {/* Thumbnail Images */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2 lg:gap-4">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -173,11 +173,11 @@ const ProductDetail = () => {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             {/* Header */}
             <div>
-              <Badge variant="outline" className="mb-2">{product.brand}</Badge>
-              <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
+              <Badge variant="outline" className="mb-2 text-xs lg:text-sm">{product.brand}</Badge>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">{product.name}</h1>
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-4">
@@ -232,47 +232,53 @@ const ProductDetail = () => {
 
             {/* Quantity and Actions */}
             <div className="space-y-4">
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                 <span className="font-medium">Cantidad:</span>
-                <div className="flex items-center border rounded-lg">
+                <div className="flex items-center border rounded-lg w-fit">
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     disabled={quantity <= 1}
+                    className="h-8 w-8 lg:h-10 lg:w-10"
                   >
-                    <Minus className="h-4 w-4" />
+                    <Minus className="h-3 w-3 lg:h-4 lg:w-4" />
                   </Button>
-                  <span className="px-4 py-2 font-medium">{quantity}</span>
+                  <span className="px-3 lg:px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setQuantity(Math.min(product.stockCount, quantity + 1))}
                     disabled={quantity >= product.stockCount}
+                    className="h-8 w-8 lg:h-10 lg:w-10"
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className="h-3 w-3 lg:h-4 lg:w-4" />
                   </Button>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="default" size="lg" className="flex-1">
-                  <ShoppingCart className="h-5 w-5 mr-2" />
+              <div className="flex flex-col gap-3">
+                <Button variant="default" size="lg" className="w-full">
+                  <ShoppingCart className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                   Agregar al Carrito
                 </Button>
-                <Button
-                  variant={isFavorite ? "default" : "outline"}
-                  size="lg"
-                  onClick={() => setIsFavorite(!isFavorite)}
-                >
-                  <Heart className={`h-5 w-5 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
-                  {isFavorite ? 'Guardado' : 'Guardar'}
-                </Button>
-                <Button variant="outline" size="lg">
-                  <Share2 className="h-5 w-5 mr-2" />
-                  Compartir
-                </Button>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    variant={isFavorite ? "default" : "outline"}
+                    size="lg"
+                    onClick={() => setIsFavorite(!isFavorite)}
+                  >
+                    <Heart className={`h-4 w-4 lg:h-5 lg:w-5 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
+                    <span className="hidden sm:inline">{isFavorite ? 'Guardado' : 'Guardar'}</span>
+                    <span className="sm:hidden">♡</span>
+                  </Button>
+                  <Button variant="outline" size="lg">
+                    <Share2 className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
+                    <span className="hidden sm:inline">Compartir</span>
+                    <span className="sm:hidden">↗</span>
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -292,23 +298,23 @@ const ProductDetail = () => {
             </Card>
 
             {/* Guarantees */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex items-center gap-3 p-4 bg-accent/20 rounded-lg">
-                <Truck className="h-6 w-6 text-primary" />
+            <div className="grid grid-cols-1 gap-3 lg:gap-4">
+              <div className="flex items-center gap-3 p-3 lg:p-4 bg-accent/20 rounded-lg">
+                <Truck className="h-5 w-5 lg:h-6 lg:w-6 text-primary flex-shrink-0" />
                 <div>
                   <div className="font-medium text-sm">Envío Gratis</div>
                   <div className="text-xs text-muted-foreground">En 24-48 horas</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4 bg-accent/20 rounded-lg">
-                <Shield className="h-6 w-6 text-primary" />
+              <div className="flex items-center gap-3 p-3 lg:p-4 bg-accent/20 rounded-lg">
+                <Shield className="h-5 w-5 lg:h-6 lg:w-6 text-primary flex-shrink-0" />
                 <div>
                   <div className="font-medium text-sm">Garantía</div>
                   <div className="text-xs text-muted-foreground">12 meses</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4 bg-accent/20 rounded-lg">
-                <RotateCcw className="h-6 w-6 text-primary" />
+              <div className="flex items-center gap-3 p-3 lg:p-4 bg-accent/20 rounded-lg">
+                <RotateCcw className="h-5 w-5 lg:h-6 lg:w-6 text-primary flex-shrink-0" />
                 <div>
                   <div className="font-medium text-sm">Devoluciones</div>
                   <div className="text-xs text-muted-foreground">30 días</div>

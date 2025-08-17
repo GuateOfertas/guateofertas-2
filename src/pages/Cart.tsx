@@ -108,9 +108,9 @@ const Cart = () => {
             </Button>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 lg:space-y-6">
               {/* Available Items */}
               {availableItems.length > 0 && (
                 <Card className="card-gradient">
@@ -123,9 +123,9 @@ const Cart = () => {
                   <CardContent className="space-y-4">
                     {availableItems.map((item, index) => (
                       <div key={item.id}>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                           {/* Product Image */}
-                          <div className="w-20 h-20 bg-accent/20 rounded-lg overflow-hidden flex-shrink-0">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-accent/20 rounded-lg overflow-hidden flex-shrink-0">
                             <img
                               src={item.image}
                               alt={item.name}
@@ -135,55 +135,60 @@ const Cart = () => {
 
                           {/* Product Info */}
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-foreground truncate">
+                            <h3 className="font-semibold text-foreground text-sm sm:text-base">
                               {item.name}
                             </h3>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-lg font-bold text-primary">
+                              <span className="text-base sm:text-lg font-bold text-primary">
                                 {formatPrice(item.price)}
                               </span>
                               {item.originalPrice > item.price && (
-                                <span className="text-sm text-muted-foreground line-through">
+                                <span className="text-xs sm:text-sm text-muted-foreground line-through">
                                   {formatPrice(item.originalPrice)}
                                 </span>
                               )}
                             </div>
-                            <Badge variant="outline" className="mt-2 bg-success/10 text-success border-success/20">
+                            <Badge variant="outline" className="mt-1 sm:mt-2 bg-success/10 text-success border-success/20 text-xs">
                               En Stock
                             </Badge>
                           </div>
 
-                          {/* Quantity Controls */}
-                          <div className="flex items-center gap-2">
+                          {/* Mobile Actions Row */}
+                          <div className="flex items-center justify-between sm:contents gap-4">
+                            {/* Quantity Controls */}
+                            <div className="flex items-center gap-1 sm:gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                disabled={item.quantity <= 1}
+                                className="h-8 w-8 sm:h-10 sm:w-10"
+                              >
+                                <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
+                              </Button>
+                              <span className="w-8 sm:w-12 text-center font-medium text-sm sm:text-base">
+                                {item.quantity}
+                              </span>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                className="h-8 w-8 sm:h-10 sm:w-10"
+                              >
+                                <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                              </Button>
+                            </div>
+
+                            {/* Remove Button */}
                             <Button
-                              variant="outline"
+                              variant="ghost"
                               size="icon"
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              disabled={item.quantity <= 1}
+                              onClick={() => removeItem(item.id)}
+                              className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8 sm:h-10 sm:w-10"
                             >
-                              <Minus className="h-4 w-4" />
-                            </Button>
-                            <span className="w-12 text-center font-medium">
-                              {item.quantity}
-                            </span>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            >
-                              <Plus className="h-4 w-4" />
+                              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                           </div>
-
-                          {/* Remove Button */}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => removeItem(item.id)}
-                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
                         </div>
                         {index < availableItems.length - 1 && <Separator className="mt-4" />}
                       </div>

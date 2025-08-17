@@ -95,26 +95,26 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border/50">
-          <div className="container mx-auto px-4 py-4">
-            <div className="space-y-4">
+        <div className="lg:hidden fixed inset-x-0 top-[calc(4rem+1px)] bg-background/98 backdrop-blur-md border-t border-border/50 shadow-lg z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="container mx-auto px-4 py-6">
+            <div className="space-y-1">
               {categories.map((category) => (
                 <Link
                   key={category}
                   to={`/categoria/${category.toLowerCase()}`}
-                  className="block py-2 text-foreground hover:text-primary transition-smooth"
+                  className="block py-3 px-4 text-foreground hover:text-primary hover:bg-accent/50 rounded-lg transition-smooth"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {category}
                 </Link>
               ))}
-              <hr className="border-border/30" />
+              <hr className="border-border/30 my-4" />
               <Link
                 to="/cuenta"
-                className="flex items-center py-2 text-foreground hover:text-primary transition-smooth"
+                className="flex items-center py-3 px-4 text-foreground hover:text-primary hover:bg-accent/50 rounded-lg transition-smooth"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <User className="h-4 w-4 mr-2" />
+                <User className="h-4 w-4 mr-3" />
                 Mi Cuenta
               </Link>
             </div>
