@@ -14,6 +14,8 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import OrderTracking from "./pages/OrderTracking";
 import OrderDetail from "./pages/OrderDetail";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/terminos" element={<Terms />} />
           <Route path="/rastrear-pedido" element={<OrderTracking />} />
           <Route path="/pedido/:orderId" element={<OrderDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Register />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

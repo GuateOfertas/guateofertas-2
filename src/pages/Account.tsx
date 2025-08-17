@@ -175,22 +175,22 @@ const Account = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-6">
-            <div className="w-20 h-20 rounded-full overflow-hidden bg-accent/20">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-accent/20 flex-shrink-0">
               <img
                 src={user.avatar}
                 alt={user.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">{user.name}</h1>
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{user.name}</h1>
               <p className="text-muted-foreground">Miembro desde {user.memberSince}</p>
-              <div className="flex items-center gap-4 mt-2">
-                <Badge variant="outline">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-4 mt-2">
+                <Badge variant="outline" className="text-xs">
                   {user.totalOrders} pedidos
                 </Badge>
-                <Badge variant="outline">
+                <Badge variant="outline" className="text-xs">
                   {formatPrice(user.totalSpent)} gastados
                 </Badge>
               </div>
@@ -200,26 +200,31 @@ const Account = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
-              <User className="h-4 w-4" />
-              Perfil
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 gap-1">
+            <TabsTrigger value="profile" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <User className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Perfil</span>
+              <span className="sm:hidden">👤</span>
             </TabsTrigger>
-            <TabsTrigger value="orders" className="flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              Pedidos
+            <TabsTrigger value="orders" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Package className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Pedidos</span>
+              <span className="sm:hidden">📦</span>
             </TabsTrigger>
-            <TabsTrigger value="addresses" className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Direcciones
+            <TabsTrigger value="addresses" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Direcciones</span>
+              <span className="sm:hidden">📍</span>
             </TabsTrigger>
-            <TabsTrigger value="favorites" className="flex items-center gap-2">
-              <Heart className="h-4 w-4" />
-              Favoritos
+            <TabsTrigger value="favorites" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Heart className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Favoritos</span>
+              <span className="sm:hidden">💝</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              Configuración
+            <TabsTrigger value="settings" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Configuración</span>
+              <span className="sm:hidden">⚙️</span>
             </TabsTrigger>
           </TabsList>
 
@@ -289,54 +294,57 @@ const Account = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {orders.map((order) => (
-                  <div key={order.id} className="border border-border/50 rounded-lg p-4 hover:shadow-card transition-smooth">
-                    <div className="flex items-center justify-between mb-4">
+                  <div key={order.id} className="border border-border/50 rounded-lg p-3 sm:p-4 hover:shadow-card transition-smooth">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4">
                       <div className="flex items-center gap-3">
                         <div>
-                          <div className="font-semibold">Pedido #{order.id}</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="font-semibold text-sm sm:text-base">Pedido #{order.id}</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground">
                             {formatDate(order.date)}
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <Badge className={getStatusColor(order.status)}>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                        <Badge className={`${getStatusColor(order.status)} text-xs`}>
                           {getStatusIcon(order.status)}
                           <span className="ml-1">{getStatusText(order.status)}</span>
                         </Badge>
                         <div className="text-right">
-                          <div className="font-bold text-primary">{formatPrice(order.total)}</div>
+                          <div className="font-bold text-primary text-sm sm:text-base">{formatPrice(order.total)}</div>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4">
                       {order.items.map((item, index) => (
                         <div key={index} className="flex items-center gap-2">
                           <img
                             src={item.image}
                             alt={item.name}
-                            className="w-10 h-10 rounded object-cover"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded object-cover"
                           />
-                          <span className="text-sm text-muted-foreground">{item.name}</span>
+                          <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[100px] sm:max-w-none">{item.name}</span>
                         </div>
                       ))}
                     </div>
 
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4 mr-2" />
-                        Ver Detalles
+                    <div className="flex flex-wrap gap-2">
+                      <Button variant="outline" size="sm" className="text-xs">
+                        <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Ver Detalles</span>
+                        <span className="sm:hidden">Ver</span>
                       </Button>
                       {order.status === "delivered" && (
-                        <Button variant="outline" size="sm">
-                          Volver a Comprar
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <span className="hidden sm:inline">Volver a Comprar</span>
+                          <span className="sm:hidden">Recomprar</span>
                         </Button>
                       )}
                       {order.status === "in-transit" && (
-                        <Button variant="outline" size="sm">
-                          <Truck className="h-4 w-4 mr-2" />
-                          Rastrear Envío
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <Truck className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                          <span className="hidden sm:inline">Rastrear Envío</span>
+                          <span className="sm:hidden">Rastrear</span>
                         </Button>
                       )}
                     </div>
