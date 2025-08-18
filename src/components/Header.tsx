@@ -4,15 +4,51 @@ import { Search, ShoppingCart, Menu, X, User, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartItems] = useState(3); // Mock cart items count
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
   const categories = [
     "Electrónicos", "Moda", "Hogar", "Deportes", "Belleza", "Libros"
   ];
+
+  const searchSuggestions = [
+    "iPhone 15 Pro",
+    "Samsung Galaxy S24",
+    "MacBook Air M3",
+    "AirPods Pro",
+    "PlayStation 5",
+    "Nike Air Max",
+    "Camiseta básica",
+    "Zapatillas deportivas",
+    "Sofá moderno",
+    "Mesa de comedor",
+    "Perfume mujer",
+    "Crema facial",
+    "Libro bestseller",
+    "Audífonos Bluetooth"
+  ];
+
+  const filteredSuggestions = searchSuggestions.filter(suggestion =>
+    suggestion.toLowerCase().includes(searchValue.toLowerCase())
+  ).slice(0, 6);
 
   return (
     <header className="sticky top-0 z-50 w-full glass-effect border-b border-border/50">
@@ -36,13 +72,50 @@ const Header = () => {
 
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-lg mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                placeholder="Busca productos, marcas y más..."
-                className="pl-10 bg-background/80 border-border/50 focus:ring-primary"
-              />
-            </div>
+            <Popover open={searchOpen} onOpenChange={setSearchOpen}>
+              <PopoverTrigger asChild>
+                <div className="relative w-full">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input
+                    placeholder="Busca productos, marcas y más..."
+                    className="pl-10 bg-background/80 border-border/50 focus:ring-primary cursor-pointer"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onClick={() => setSearchOpen(true)}
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0" align="start">
+                <Command>
+                  <CommandInput 
+                    placeholder="Buscar productos..." 
+                    value={searchValue}
+                    onValueChange={setSearchValue}
+                  />
+                  <CommandList>
+                    <CommandEmpty>No se encontraron productos.</CommandEmpty>
+                    {filteredSuggestions.length > 0 && (
+                      <CommandGroup heading="Sugerencias">
+                        {filteredSuggestions.map((suggestion) => (
+                          <CommandItem
+                            key={suggestion}
+                            onSelect={() => {
+                              setSearchValue(suggestion);
+                              setSearchOpen(false);
+                              // Aquí puedes agregar la navegación a resultados de búsqueda
+                            }}
+                            className="cursor-pointer"
+                          >
+                            <Search className="mr-2 h-4 w-4" />
+                            {suggestion}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    )}
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Actions */}
@@ -83,35 +156,69 @@ const Header = () => {
 
         {/* Mobile Search */}
         <div className="md:hidden py-3 border-t border-border/30">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Buscar productos..."
-              className="pl-10 bg-background/80"
-            />
-          </div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input
+                  placeholder="Buscar productos..."
+                  className="pl-10 bg-background/80 cursor-pointer"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0" align="start">
+              <Command>
+                <CommandInput 
+                  placeholder="Buscar productos..." 
+                  value={searchValue}
+                  onValueChange={setSearchValue}
+                />
+                <CommandList>
+                  <CommandEmpty>No se encontraron productos.</CommandEmpty>
+                  {filteredSuggestions.length > 0 && (
+                    <CommandGroup heading="Sugerencias">
+                      {filteredSuggestions.map((suggestion) => (
+                        <CommandItem
+                          key={suggestion}
+                          onSelect={() => {
+                            setSearchValue(suggestion);
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <Search className="mr-2 h-4 w-4" />
+                          {suggestion}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  )}
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[calc(4rem+1px)] bg-background/98 backdrop-blur-md border-t border-border/50 shadow-lg z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="lg:hidden fixed inset-x-0 top-[calc(4rem+1px)] bg-white/98 backdrop-blur-md border-t border-border/50 shadow-lg z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="container mx-auto px-4 py-6">
             <div className="space-y-1">
               {categories.map((category) => (
                 <Link
                   key={category}
                   to={`/categoria/${category.toLowerCase()}`}
-                  className="block py-3 px-4 text-foreground hover:text-primary hover:bg-accent/50 rounded-lg transition-smooth"
+                  className="block py-3 px-4 text-gray-800 hover:text-primary hover:bg-gray-100 rounded-lg transition-smooth"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {category}
                 </Link>
               ))}
-              <hr className="border-border/30 my-4" />
+              <hr className="border-gray-200 my-4" />
               <Link
                 to="/cuenta"
-                className="flex items-center py-3 px-4 text-foreground hover:text-primary hover:bg-accent/50 rounded-lg transition-smooth"
+                className="flex items-center py-3 px-4 text-gray-800 hover:text-primary hover:bg-gray-100 rounded-lg transition-smooth"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <User className="h-4 w-4 mr-3" />
