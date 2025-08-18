@@ -153,18 +153,19 @@ const ProductDetail = () => {
             </div>
             
             {/* Thumbnail Images */}
-            <div className="grid grid-cols-4 gap-2 lg:gap-4">
+            <div className="flex sm:grid sm:grid-cols-4 gap-2 lg:gap-4 overflow-x-auto pb-2 -mx-1 sm:mx-0">
               {product.images.map((image, index) => (
                 <button
                   key={index}
                   className={`aspect-square rounded-lg overflow-hidden border-2 transition-smooth ${
                     selectedImage === index ? 'border-primary' : 'border-transparent'
-                  }`}
+                  } min-w-[5rem] sm:min-w-0`}
                   onClick={() => setSelectedImage(index)}
                 >
                   <img
                     src={image}
                     alt={`${product.name} ${index + 1}`}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </button>
@@ -328,7 +329,7 @@ const ProductDetail = () => {
         <Card className="card-gradient mb-16">
           <CardContent className="p-6">
             <Tabs defaultValue="specs" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="w-full overflow-x-auto flex gap-2 sm:grid sm:grid-cols-3">
                 <TabsTrigger value="specs">Especificaciones</TabsTrigger>
                 <TabsTrigger value="reviews">Reseñas ({product.reviews})</TabsTrigger>
                 <TabsTrigger value="shipping">Envío y Devoluciones</TabsTrigger>
