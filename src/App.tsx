@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
@@ -26,23 +28,27 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/categoria/:category" element={<CategoryPage />} />
-          <Route path="/producto/:id" element={<ProductDetail />} />
-          <Route path="/carrito" element={<Cart />} />
-          <Route path="/cuenta" element={<Account />} />
-          <Route path="/contacto" element={<Contact />} />
-          <Route path="/sobre-nosotros" element={<About />} />
-          <Route path="/privacidad" element={<Privacy />} />
-          <Route path="/terminos" element={<Terms />} />
-          <Route path="/rastrear-pedido" element={<OrderTracking />} />
-          <Route path="/pedido/:orderId" element={<OrderDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registro" element={<Register />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="min-h-screen bg-background">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/categoria/:category" element={<CategoryPage />} />
+            <Route path="/producto/:id" element={<ProductDetail />} />
+            <Route path="/carrito" element={<Cart />} />
+            <Route path="/cuenta" element={<Account />} />
+            <Route path="/contacto" element={<Contact />} />
+            <Route path="/sobre-nosotros" element={<About />} />
+            <Route path="/privacidad" element={<Privacy />} />
+            <Route path="/terminos" element={<Terms />} />
+            <Route path="/rastrear-pedido" element={<OrderTracking />} />
+            <Route path="/pedido/:orderId" element={<OrderDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Register />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

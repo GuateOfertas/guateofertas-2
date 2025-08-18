@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -102,9 +100,7 @@ const ProductDetail = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <div className="bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8">
@@ -444,8 +440,6 @@ const ProductDetail = () => {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 };
