@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -152,9 +150,7 @@ const CategoryPage = () => {
   const currentCategory = categoryInfo[category as keyof typeof categoryInfo] || categoryInfo.electronica;
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <div className="bg-background">
       {/* Category Header */}
       <section className="py-12 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4">
@@ -318,8 +314,6 @@ const CategoryPage = () => {
           </main>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

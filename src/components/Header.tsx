@@ -99,11 +99,13 @@ const Header = () => {
                         {filteredSuggestions.map((suggestion) => (
                           <CommandItem
                             key={suggestion}
-                            onSelect={() => {
-                              setSearchValue(suggestion);
+                          onSelect={() => {
+                            if (suggestion.trim()) {
+                              navigate(`/busqueda?q=${encodeURIComponent(suggestion.trim())}`);
+                              setSearchValue("");
                               setSearchOpen(false);
-                              // Aquí puedes agregar la navegación a resultados de búsqueda
-                            }}
+                            }
+                          }}
                             className="cursor-pointer"
                           >
                             <Search className="mr-2 h-4 w-4" />
@@ -183,7 +185,11 @@ const Header = () => {
                         <CommandItem
                           key={suggestion}
                           onSelect={() => {
-                            setSearchValue(suggestion);
+                            if (suggestion.trim()) {
+                              navigate(`/busqueda?q=${encodeURIComponent(suggestion.trim())}`);
+                              setSearchValue("");
+                              setSearchOpen(false);
+                            }
                           }}
                           className="cursor-pointer"
                         >

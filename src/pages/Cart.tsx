@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,8 +79,7 @@ const Cart = () => {
   const unavailableItems = cartItems.filter(item => !item.inStock);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="bg-background">
       
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
@@ -350,8 +347,6 @@ const Cart = () => {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 };
