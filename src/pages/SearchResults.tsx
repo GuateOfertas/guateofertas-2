@@ -232,7 +232,7 @@ const SearchResults = () => {
                         <SelectValue placeholder="Todas las categorías" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Todas las categorías</SelectItem>
+                        <SelectItem value="all">Todas las categorías</SelectItem>
                         <SelectItem value="smartphones">Smartphones</SelectItem>
                         <SelectItem value="computadoras">Computadoras</SelectItem>
                         <SelectItem value="tablets">Tablets</SelectItem>
