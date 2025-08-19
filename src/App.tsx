@@ -19,6 +19,11 @@ import OrderDetail from "./pages/OrderDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
+import Checkout from "./pages/Checkout";
+import ChangePassword from "./pages/ChangePassword";
+import Setup2FA from "./pages/Setup2FA";
+import DeleteAccount from "./pages/DeleteAccount";
+import AddAddress from "./pages/AddAddress";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +51,11 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/busqueda" element={<SearchResults />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/cambiar-contrasena" element={<ChangePassword />} />
+            <Route path="/configurar-2fa" element={<Setup2FA />} />
+            <Route path="/eliminar-cuenta" element={<DeleteAccount />} />
+            <Route path="/anadir-direccion" element={<AddAddress />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
