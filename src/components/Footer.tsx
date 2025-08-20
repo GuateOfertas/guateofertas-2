@@ -68,9 +68,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-gradient-primary">
-              GuateOfertas.com
-            </h2>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/lovable-uploads/68818e90-9b0c-4726-b7bd-2537e7e27504.png" 
+                alt="GuateOfertas.com Logo"
+                className="h-12 w-12"
+              />
+              <h2 className="text-2xl font-bold text-gradient-primary">
+                GuateOfertas.com
+              </h2>
+            </div>
             <p className="text-muted-foreground">
               Tu tienda online de confianza en Guatemala. Ofertas increíbles, 
               calidad garantizada y envío a todo el país.

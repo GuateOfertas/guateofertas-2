@@ -63,8 +63,13 @@ const Header = () => {
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
-            <Link to="/" className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-gradient-primary">
+            <Link to="/" className="flex items-center space-x-3">
+              <img 
+                src="/lovable-uploads/68818e90-9b0c-4726-b7bd-2537e7e27504.png" 
+                alt="GuateOfertas.com Logo"
+                className="h-10 w-10"
+              />
+              <h1 className="text-xl font-bold text-gradient-primary hidden sm:block">
                 GuateOfertas.com
               </h1>
             </Link>
