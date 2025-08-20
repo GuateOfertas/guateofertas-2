@@ -85,7 +85,7 @@ const Header = () => {
                   />
                 </div>
               </PopoverTrigger>
-              <PopoverContent className="w-full p-0" align="start">
+              <PopoverContent className="w-full p-0 bg-popover border-border shadow-md z-50" align="start">
                 <Command>
                   <CommandInput 
                     placeholder="Buscar productos..." 
@@ -170,7 +170,7 @@ const Header = () => {
                 />
               </div>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0" align="start">
+            <PopoverContent className="w-full p-0 bg-popover border-border shadow-md z-50" align="start">
               <Command>
                 <CommandInput 
                   placeholder="Buscar productos..." 
@@ -208,7 +208,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[calc(4rem+1px)] bg-white/98 backdrop-blur-md border-t border-border/50 shadow-lg z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="lg:hidden fixed inset-x-0 top-[calc(4rem+1px)] bg-popover border-t border-border shadow-lg z-50 max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="container mx-auto px-4 py-6">
             <div className="space-y-1">
               {categories.map((category) => (
