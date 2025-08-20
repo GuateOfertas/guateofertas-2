@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Heart, ShoppingCart, Star, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,11 +41,12 @@ const ProductCard = ({
   };
 
   return (
-    <Card 
-      className="group relative overflow-hidden card-gradient border-border/50 hover:shadow-primary transition-smooth hover-lift"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <Link to={`/producto/${id}`} className="block">
+      <Card 
+        className="group relative overflow-hidden card-gradient border-border/50 hover:shadow-primary transition-smooth hover-lift"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       <CardContent className="p-0">
         {/* Image Container */}
         <div className="relative aspect-square overflow-hidden">
@@ -81,7 +83,10 @@ const ProductCard = ({
               className={`glass-effect transition-smooth ${
                 isFavorite ? 'text-destructive' : 'text-muted-foreground hover:text-destructive'
               }`}
-              onClick={() => setIsFavorite(!isFavorite)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsFavorite(!isFavorite);
+              }}
             >
               <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
             </Button>
@@ -100,7 +105,14 @@ const ProductCard = ({
           <div className={`absolute bottom-3 left-3 right-3 transition-smooth ${
             isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <Button variant="cart" className="w-full">
+            <Button 
+              variant="cart" 
+              className="w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                // Lógica para agregar al carrito
+              }}
+            >
               <ShoppingCart className="h-4 w-4 mr-2" />
               Agregar al Carrito
             </Button>
@@ -146,6 +158,7 @@ const ProductCard = ({
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 

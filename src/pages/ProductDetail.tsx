@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -401,41 +401,43 @@ const ProductDetail = () => {
           <h2 className="text-3xl font-bold text-gradient-primary mb-8">Productos Relacionados</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedProducts.map((relatedProduct) => (
-              <Card key={relatedProduct.id} className="card-gradient hover:shadow-primary transition-smooth hover-lift">
-                <CardContent className="p-4">
-                  <img
-                    src={relatedProduct.image}
-                    alt={relatedProduct.name}
-                    className="w-full aspect-square object-cover rounded-lg mb-4"
-                  />
-                  <h3 className="font-semibold mb-2 line-clamp-2">{relatedProduct.name}</h3>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-3 w-3 ${
-                            i < Math.floor(relatedProduct.rating)
-                              ? 'text-yellow-400 fill-current'
-                              : 'text-gray-300'
-                          }`}
-                        />
-                      ))}
+              <Link key={relatedProduct.id} to={`/producto/${relatedProduct.id}`}>
+                <Card className="card-gradient hover:shadow-primary transition-smooth hover-lift">
+                  <CardContent className="p-4">
+                    <img
+                      src={relatedProduct.image}
+                      alt={relatedProduct.name}
+                      className="w-full aspect-square object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="font-semibold mb-2 line-clamp-2">{relatedProduct.name}</h3>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-3 w-3 ${
+                              i < Math.floor(relatedProduct.rating)
+                                ? 'text-yellow-400 fill-current'
+                                : 'text-gray-300'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-xs text-muted-foreground">({relatedProduct.reviews})</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">({relatedProduct.reviews})</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold text-primary">
-                      {formatPrice(relatedProduct.price)}
-                    </span>
-                    {relatedProduct.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
-                        {formatPrice(relatedProduct.originalPrice)}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-bold text-primary">
+                        {formatPrice(relatedProduct.price)}
                       </span>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+                      {relatedProduct.originalPrice && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          {formatPrice(relatedProduct.originalPrice)}
+                        </span>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>

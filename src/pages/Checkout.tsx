@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,13 +8,39 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CreditCard, Truck, Shield, ArrowLeft } from "lucide-react";
+import { CreditCard, Truck, Shield, ArrowLeft, Plus, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [shippingMethod, setShippingMethod] = useState("standard");
+  const [useExistingAddress, setUseExistingAddress] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState("");
+  
+  // Mock direcciones guardadas
+  const savedAddresses = [
+    {
+      id: "1",
+      name: "Casa",
+      fullName: "Juan Pérez",
+      address: "Calle Principal 123",
+      city: "Ciudad de Guatemala",
+      state: "Guatemala",
+      zipCode: "01001",
+      phone: "+502 2345-6789"
+    },
+    {
+      id: "2", 
+      name: "Oficina",
+      fullName: "Juan Pérez",
+      address: "Zona 10, Edificio Empresarial 456",
+      city: "Ciudad de Guatemala", 
+      state: "Guatemala",
+      zipCode: "01010",
+      phone: "+502 2345-6789"
+    }
+  ];
   
   // Mock cart items
   const cartItems = [
@@ -67,56 +94,114 @@ const Checkout = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="firstName">Nombre</Label>
-                    <Input id="firstName" placeholder="Juan" />
+                {savedAddresses.length > 0 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="useExisting"
+                        checked={useExistingAddress}
+                        onCheckedChange={(checked) => setUseExistingAddress(checked === true)}
+                      />
+                      <Label htmlFor="useExisting">Usar dirección guardada</Label>
+                    </div>
+                    
+                    {useExistingAddress && (
+                      <div className="space-y-3">
+                        <RadioGroup value={selectedAddress} onValueChange={setSelectedAddress}>
+                          {savedAddresses.map((address) => (
+                            <div key={address.id} className="flex items-start space-x-2 p-4 border rounded-lg">
+                              <RadioGroupItem value={address.id} id={address.id} className="mt-1" />
+                              <Label htmlFor={address.id} className="flex-1 cursor-pointer">
+                                <div className="space-y-1">
+                                  <div className="flex items-center gap-2">
+                                    <MapPin className="h-4 w-4 text-primary" />
+                                    <span className="font-medium">{address.name}</span>
+                                  </div>
+                                  <p className="text-sm">{address.fullName}</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    {address.address}, {address.city}, {address.state} {address.zipCode}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground">{address.phone}</p>
+                                </div>
+                              </Label>
+                            </div>
+                          ))}
+                        </RadioGroup>
+                        <Link to="/anadir-direccion">
+                          <Button variant="outline" className="w-full">
+                            <Plus className="h-4 w-4 mr-2" />
+                            Agregar Nueva Dirección
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <Label htmlFor="lastName">Apellido</Label>
-                    <Input id="lastName" placeholder="Pérez" />
-                  </div>
-                </div>
+                )}
                 
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="juan@email.com" />
-                </div>
-                
-                <div>
-                  <Label htmlFor="phone">Teléfono</Label>
-                  <Input id="phone" placeholder="+1 555 123 4567" />
-                </div>
-                
-                <div>
-                  <Label htmlFor="address">Dirección</Label>
-                  <Input id="address" placeholder="Calle Principal 123" />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="city">Ciudad</Label>
-                    <Input id="city" placeholder="Ciudad de México" />
-                  </div>
-                  <div>
-                    <Label htmlFor="state">Estado</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona estado" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="cdmx">Ciudad de México</SelectItem>
-                        <SelectItem value="jalisco">Jalisco</SelectItem>
-                        <SelectItem value="nuevo-leon">Nuevo León</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="zipCode">Código Postal</Label>
-                  <Input id="zipCode" placeholder="12345" />
-                </div>
+                {(!useExistingAddress || savedAddresses.length === 0) && (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="firstName">Nombre</Label>
+                        <Input id="firstName" placeholder="Juan" />
+                      </div>
+                      <div>
+                        <Label htmlFor="lastName">Apellido</Label>
+                        <Input id="lastName" placeholder="Pérez" />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" placeholder="juan@email.com" />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="phone">Teléfono</Label>
+                      <Input id="phone" placeholder="+502 2345-6789" />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="address">Dirección</Label>
+                      <Input id="address" placeholder="Calle Principal 123" />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="city">Ciudad</Label>
+                        <Input id="city" placeholder="Ciudad de Guatemala" />
+                      </div>
+                      <div>
+                        <Label htmlFor="state">Departamento</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecciona departamento" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="guatemala">Guatemala</SelectItem>
+                            <SelectItem value="sacatepequez">Sacatepéquez</SelectItem>
+                            <SelectItem value="chimaltenango">Chimaltenango</SelectItem>
+                            <SelectItem value="quetzaltenango">Quetzaltenango</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="zipCode">Código Postal</Label>
+                      <Input id="zipCode" placeholder="01001" />
+                    </div>
+                    
+                    {savedAddresses.length === 0 && (
+                      <div className="flex items-center space-x-2 pt-2">
+                        <Checkbox id="saveAddress" />
+                        <Label htmlFor="saveAddress" className="text-sm">
+                          Guardar esta dirección para futuras compras
+                        </Label>
+                      </div>
+                    )}
+                  </>
+                )}
               </CardContent>
             </Card>
 
