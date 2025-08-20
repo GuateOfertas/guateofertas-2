@@ -117,11 +117,11 @@ const ProductDetail = () => {
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="relative aspect-square overflow-hidden rounded-lg bg-accent/20">
+            <div className="relative aspect-square overflow-hidden rounded-lg bg-accent/20 max-w-full">
               <img
                 src={product.images[selectedImage]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
               {product.discount && (
                 <Badge className="absolute top-2 left-2 lg:top-4 lg:left-4 bg-destructive text-destructive-foreground text-xs lg:text-sm">
@@ -162,7 +162,7 @@ const ProductDetail = () => {
                     src={image}
                     alt={`${product.name} ${index + 1}`}
                     loading="lazy"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </button>
               ))}

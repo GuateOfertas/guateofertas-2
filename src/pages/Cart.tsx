@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([
     {
       id: "1",
@@ -319,6 +321,7 @@ const Cart = () => {
                     size="lg" 
                     className="w-full"
                     disabled={availableItems.length === 0}
+                    onClick={() => navigate('/checkout')}
                   >
                     <CreditCard className="h-5 w-5 mr-2" />
                     Proceder al Pago
@@ -326,7 +329,12 @@ const Cart = () => {
                   </Button>
 
                   {/* Continue Shopping */}
-                  <Button variant="outline" size="lg" className="w-full">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="w-full"
+                    onClick={() => navigate('/')}
+                  >
                     Continuar Comprando
                   </Button>
 
