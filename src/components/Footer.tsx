@@ -39,23 +39,23 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-background to-muted/30 border-t border-border/50">
+    <footer className="hero-gradient text-white border-t border-white/20">
       {/* Newsletter Section */}
-      <div className="border-b border-border/30">
+      <div className="border-b border-white/20">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-gradient-primary mb-4">
+            <h3 className="text-2xl font-bold text-white mb-4">
               ¡No te pierdas nuestras ofertas!
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-white/80 mb-6">
               Suscríbete a nuestro newsletter y recibe descuentos exclusivos
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Input
                 placeholder="Tu email aquí..."
-                className="flex-1 bg-background/80"
+                className="flex-1 bg-white/10 border-white/30 text-white placeholder:text-white/60"
               />
-              <Button variant="default" className="px-8">
+              <Button variant="secondary" className="px-8 bg-accent text-accent-foreground hover:bg-accent/90">
                 Suscribirse
               </Button>
             </div>
@@ -74,27 +74,27 @@ const Footer = () => {
                 alt="GuateOfertas.com Logo"
                 className="h-12 w-12"
               />
-              <h2 className="text-2xl font-bold text-gradient-primary">
+              <h2 className="text-2xl font-bold text-white">
                 GuateOfertas.com
               </h2>
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-white/80">
               Tu tienda online de confianza en Guatemala. Ofertas increíbles, 
               calidad garantizada y envío a todo el país.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-2">
-              <div className="flex items-center space-x-2 text-sm">
-                <MapPin className="h-4 w-4 text-primary" />
+              <div className="flex items-center space-x-2 text-sm text-white/90">
+                <MapPin className="h-4 w-4 text-accent" />
                 <span>Ciudad de Guatemala, Guatemala</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
-                <Phone className="h-4 w-4 text-primary" />
+              <div className="flex items-center space-x-2 text-sm text-white/90">
+                <Phone className="h-4 w-4 text-accent" />
                 <span>+502 2345-6789</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
-                <Mail className="h-4 w-4 text-primary" />
+              <div className="flex items-center space-x-2 text-sm text-white/90">
+                <Mail className="h-4 w-4 text-accent" />
                 <span>hola@guateofertas.com</span>
               </div>
             </div>
@@ -106,7 +106,7 @@ const Footer = () => {
                   key={index}
                   variant="ghost"
                   size="icon"
-                  className="hover:text-primary transition-smooth"
+                  className="text-white hover:text-accent hover:bg-white/10 transition-smooth"
                 >
                   <Icon className="h-5 w-5" />
                 </Button>
@@ -116,13 +116,13 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Enlaces Rápidos</h4>
+            <h4 className="font-semibold text-white mb-4">Enlaces Rápidos</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    className="text-sm text-white/80 hover:text-accent transition-smooth"
                   >
                     {link.name}
                   </Link>
@@ -133,13 +133,13 @@ const Footer = () => {
 
           {/* Categories */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Categorías</h4>
+            <h4 className="font-semibold text-white mb-4">Categorías</h4>
             <ul className="space-y-2">
               {categories.map((category) => (
                 <li key={category}>
                   <Link
                     to={`/categoria/${category.toLowerCase()}`}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    className="text-sm text-white/80 hover:text-accent transition-smooth"
                   >
                     {category}
                   </Link>
@@ -150,29 +150,29 @@ const Footer = () => {
 
           {/* Customer Service */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Atención al Cliente</h4>
+            <h4 className="font-semibold text-white mb-4">Atención al Cliente</h4>
             <div className="space-y-3">
               <div>
-                <p className="text-sm font-medium">Horarios de Atención:</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm font-medium text-white">Horarios de Atención:</p>
+                <p className="text-sm text-white/80">
                   Lun - Vie: 8:00 AM - 8:00 PM
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/80">
                   Sáb - Dom: 9:00 AM - 6:00 PM
                 </p>
               </div>
               
               <div>
-                <p className="text-sm font-medium mb-2">Métodos de Pago:</p>
+                <p className="text-sm font-medium mb-2 text-white">Métodos de Pago:</p>
                 <div className="flex space-x-2">
                   {paymentMethods.map((method, index) => {
                     const Icon = method.icon;
                     return (
                       <div
                         key={index}
-                        className="w-8 h-8 bg-background rounded border border-border/50 flex items-center justify-center"
+                        className="w-8 h-8 bg-white/10 rounded border border-white/20 flex items-center justify-center"
                       >
-                        <Icon className="h-4 w-4 text-muted-foreground" />
+                        <Icon className="h-4 w-4 text-white/80" />
                       </div>
                     );
                   })}
@@ -184,13 +184,13 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-border/30">
+      <div className="border-t border-white/20">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/80">
               © 2024 GuateOfertas.com. Todos los derechos reservados.
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/80">
               Desarrollado con ❤️ para Guatemala
             </p>
           </div>
