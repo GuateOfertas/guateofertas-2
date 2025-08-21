@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +20,10 @@ import {
   CheckCircle,
   Clock,
   Plus,
-  Trash2
+  Trash2,
+  Home,
+  Briefcase,
+  Building
 } from "lucide-react";
 
 const Account = () => {
@@ -354,44 +358,89 @@ const Account = () => {
           <TabsContent value="addresses" className="space-y-6 mt-6">
             <Card className="card-gradient">
               <CardHeader>
-                <div className="flex justify-between items-center">
-                  <CardTitle>Mis Direcciones</CardTitle>
-                  <Button variant="outline">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Agregar Dirección
-                  </Button>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <CardTitle className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    Mis Direcciones
+                  </CardTitle>
+                  <Link to="/anadir-direccion">
+                    <Button variant="default" className="w-full sm:w-auto">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Agregar Dirección
+                    </Button>
+                  </Link>
                 </div>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Gestiona tus direcciones de envío para una entrega más rápida
+                </p>
               </CardHeader>
               <CardContent className="space-y-4">
-                {addresses.map((address) => (
-                  <div key={address.id} className="border border-border/50 rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold">{address.name}</span>
-                          {address.isDefault && (
-                            <Badge variant="outline" className="bg-primary/10 text-primary">
-                              Predeterminada
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="text-muted-foreground">
-                          <div>{address.street}</div>
-                          <div>{address.city}</div>
-                          <div>{address.phone}</div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="ghost" size="icon">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
+                {addresses.length === 0 ? (
+                  <div className="text-center py-12">
+                    <MapPin className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="font-semibold text-lg mb-2">No tienes direcciones guardadas</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Agrega una dirección para hacer más fácil el proceso de compra
+                    </p>
+                    <Link to="/anadir-direccion">
+                      <Button variant="default">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Agregar Primera Dirección
+                      </Button>
+                    </Link>
                   </div>
-                ))}
+                ) : (
+                  <div className="grid gap-4">
+                    {addresses.map((address) => (
+                      <div key={address.id} className="border border-border/50 rounded-lg p-5 hover:shadow-card transition-smooth bg-card">
+                        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+                          <div className="flex-1 space-y-3">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                  {address.type === 'home' && <Home className="h-4 w-4 text-primary" />}
+                                  {address.type === 'work' && <Briefcase className="h-4 w-4 text-primary" />}
+                                  {address.type === 'other' && <Building className="h-4 w-4 text-primary" />}
+                                </div>
+                                <span className="font-semibold text-foreground">{address.name}</span>
+                              </div>
+                              {address.isDefault && (
+                                <Badge variant="secondary" className="bg-success/10 text-success border-success/20">
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  Predeterminada
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="text-muted-foreground space-y-1">
+                              <div className="flex items-start gap-2">
+                                <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground/60" />
+                                <div>
+                                  <div className="font-medium text-foreground">{address.street}</div>
+                                  <div>{address.city}</div>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 ml-6">
+                                <span className="text-sm">{address.phone}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-row lg:flex-col gap-2">
+                            <Link to={`/editar-direccion/${address.id}`} className="flex-1 lg:flex-none">
+                              <Button variant="outline" size="sm" className="w-full">
+                                <Edit className="h-4 w-4 mr-2" />
+                                Editar
+                              </Button>
+                            </Link>
+                            <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive hover:bg-destructive/10 flex-1 lg:flex-none">
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Eliminar
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

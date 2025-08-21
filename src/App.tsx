@@ -25,6 +25,7 @@ import ChangePassword from "./pages/ChangePassword";
 import Setup2FA from "./pages/Setup2FA";
 import DeleteAccount from "./pages/DeleteAccount";
 import AddAddress from "./pages/AddAddress";
+import EditAddress from "./pages/EditAddress";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/configurar-2fa" element={<Setup2FA />} />
             <Route path="/eliminar-cuenta" element={<DeleteAccount />} />
             <Route path="/anadir-direccion" element={<AddAddress />} />
+            <Route path="/editar-direccion/:id" element={<EditAddress />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
