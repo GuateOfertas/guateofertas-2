@@ -101,7 +101,7 @@ const ProductDetail = () => {
 
   return (
     <div className="bg-background">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4 md:py-8 max-w-7xl">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8">
           <span>Inicio</span>
@@ -113,11 +113,11 @@ const ProductDetail = () => {
           <span className="text-foreground">{product.name}</span>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mb-16">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 mb-8 md:mb-16">
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="relative aspect-square overflow-hidden rounded-lg bg-accent/20 max-w-full">
+            <div className="relative aspect-square overflow-hidden rounded-lg bg-accent/20 w-full max-w-lg mx-auto md:max-w-full md:mx-0">
               <img
                 src={product.images[selectedImage]}
                 alt={product.name}
@@ -149,7 +149,7 @@ const ProductDetail = () => {
             </div>
             
             {/* Thumbnail Images */}
-            <div className="flex sm:grid sm:grid-cols-4 gap-2 lg:gap-4 overflow-x-auto pb-2 -mx-1 sm:mx-0">
+            <div className="flex justify-center sm:justify-start sm:grid sm:grid-cols-4 gap-2 lg:gap-4 overflow-x-auto pb-2 max-w-lg mx-auto md:max-w-full md:mx-0">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -170,11 +170,11 @@ const ProductDetail = () => {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 lg:space-y-6 w-full">
             {/* Header */}
             <div>
               <Badge variant="outline" className="mb-2 text-xs lg:text-sm">{product.brand}</Badge>
-              <h1 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">{product.name}</h1>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-4 break-words">{product.name}</h1>
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-4">
@@ -197,12 +197,12 @@ const ProductDetail = () => {
 
             {/* Price */}
             <div className="space-y-2">
-              <div className="flex items-center gap-4">
-                <span className="text-4xl font-bold text-primary">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
                   {formatPrice(product.price)}
                 </span>
                 {product.originalPrice && (
-                  <span className="text-xl text-muted-foreground line-through">
+                  <span className="text-lg sm:text-xl text-muted-foreground line-through">
                     {formatPrice(product.originalPrice)}
                   </span>
                 )}
@@ -223,7 +223,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Description */}
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               {product.description}
             </p>
 
@@ -322,10 +322,10 @@ const ProductDetail = () => {
         </div>
 
         {/* Product Details Tabs */}
-        <Card className="card-gradient mb-16">
+        <Card className="card-gradient mb-8 md:mb-16">
           <CardContent className="p-6">
             <Tabs defaultValue="specs" className="w-full">
-              <TabsList className="w-full overflow-x-auto flex gap-2 sm:grid sm:grid-cols-3">
+              <TabsList className="w-full overflow-x-auto flex sm:grid sm:grid-cols-3 h-auto p-1">
                 <TabsTrigger value="specs">Especificaciones</TabsTrigger>
                 <TabsTrigger value="reviews">Reseñas ({product.reviews})</TabsTrigger>
                 <TabsTrigger value="shipping">Envío y Devoluciones</TabsTrigger>
@@ -398,8 +398,8 @@ const ProductDetail = () => {
 
         {/* Related Products */}
         <section>
-          <h2 className="text-3xl font-bold text-gradient-primary mb-8">Productos Relacionados</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gradient-primary mb-6 sm:mb-8">Productos Relacionados</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {relatedProducts.map((relatedProduct) => (
               <Link key={relatedProduct.id} to={`/producto/${relatedProduct.id}`}>
                 <Card className="card-gradient hover:shadow-primary transition-smooth hover-lift">
