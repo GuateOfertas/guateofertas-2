@@ -20,6 +20,7 @@ import OrderDetail from "./pages/OrderDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
+import Offers from "./pages/Offers";
 import Checkout from "./pages/Checkout";
 import ChangePassword from "./pages/ChangePassword";
 import Setup2FA from "./pages/Setup2FA";
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/busqueda" element={<SearchResults />} />
+            <Route path="/ofertas" element={<Offers />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cambiar-contrasena" element={<ChangePassword />} />
             <Route path="/configurar-2fa" element={<Setup2FA />} />
