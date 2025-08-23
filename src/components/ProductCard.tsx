@@ -16,6 +16,7 @@ interface ProductCardProps {
   discount?: number;
   isNew?: boolean;
   isFeatured?: boolean;
+  viewMode?: "grid" | "list";
 }
 
 const ProductCard = ({
@@ -28,7 +29,8 @@ const ProductCard = ({
   reviews,
   discount,
   isNew,
-  isFeatured
+  isFeatured,
+  viewMode = "grid"
 }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -39,6 +41,126 @@ const ProductCard = ({
       currency: 'GTQ'
     }).format(price);
   };
+
+  if (viewMode === "list") {
+    return (
+      <Link to={`/producto/${id}`} className="block">
+        <Card 
+          className="group relative overflow-hidden card-gradient border-border/50 hover:shadow-primary transition-smooth hover-lift"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <CardContent className="p-0">
+            <div className="flex">
+              {/* Image Container */}
+              <div className="relative w-48 h-48 flex-shrink-0 overflow-hidden">
+                <img
+                  src={image}
+                  alt={name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                
+                {/* Badges */}
+                <div className="absolute top-3 left-3 flex flex-col gap-2">
+                  {isNew && (
+                    <Badge className="bg-success text-success-foreground">
+                      Nuevo
+                    </Badge>
+                  )}
+                  {isFeatured && (
+                    <Badge className="primary-gradient text-primary-foreground">
+                      Destacado
+                    </Badge>
+                  )}
+                  {discount && (
+                    <Badge className="bg-destructive text-destructive-foreground">
+                      -{discount}%
+                    </Badge>
+                  )}
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="flex-1 p-6 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-smooth">
+                    {name}
+                  </h3>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < Math.floor(rating)
+                              ? 'text-yellow-400 fill-current'
+                              : 'text-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm text-muted-foreground">
+                      ({reviews} reseñas)
+                    </span>
+                  </div>
+
+                  {/* Price */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl font-bold text-primary">
+                      {formatPrice(price)}
+                    </span>
+                    {originalPrice && (
+                      <span className="text-lg text-muted-foreground line-through">
+                        {formatPrice(originalPrice)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-3">
+                  <Button 
+                    variant="cart" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Lógica para agregar al carrito
+                    }}
+                  >
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    Agregar al Carrito
+                  </Button>
+                  
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={`transition-smooth ${
+                      isFavorite ? 'text-destructive' : 'text-muted-foreground hover:text-destructive'
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsFavorite(!isFavorite);
+                    }}
+                  >
+                    <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
+                  </Button>
+                  
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:text-primary"
+                  >
+                    <Eye className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
+    );
+  }
 
   return (
     <Link to={`/producto/${id}`} className="block">

@@ -309,7 +309,7 @@ const SearchResults = () => {
                     className="animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <ProductCard {...product} />
+                    <ProductCard {...product} viewMode={viewMode} />
                   </div>
                 ))}
               </div>

@@ -248,6 +248,7 @@ const Offers = () => {
           <ProductCard
             key={product.id}
             {...product}
+            viewMode={viewMode}
           />
         ))}
       </div>
