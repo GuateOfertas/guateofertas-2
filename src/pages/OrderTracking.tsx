@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,8 +19,7 @@ import {
 } from "lucide-react";
 
 const OrderTracking = () => {
-  const [searchParams] = useSearchParams();
-  const [trackingNumber, setTrackingNumber] = useState(searchParams.get('order') || "");
+  const { orderNumber } = useParams();
   const [orderData, setOrderData] = useState(null);
 
   // Mock order data
@@ -97,11 +94,12 @@ const OrderTracking = () => {
     }
   };
 
-  const handleSearch = () => {
-    if (trackingNumber.trim()) {
+  useEffect(() => {
+    if (orderNumber) {
+      // Simular búsqueda de pedido
       setOrderData(mockOrderData);
     }
-  };
+  }, [orderNumber]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-GT', {
@@ -137,40 +135,22 @@ const OrderTracking = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl lg:text-4xl font-bold text-gradient-primary mb-4">
             Rastrear Pedido
           </h1>
-          <p className="text-muted-foreground">
-            Ingresa tu número de pedido para ver el estado de tu envío
-          </p>
+          {orderNumber ? (
+            <p className="text-muted-foreground">
+              Estado del pedido: <span className="font-medium text-foreground">{orderNumber}</span>
+            </p>
+          ) : (
+            <p className="text-muted-foreground">
+              No se encontró el número de pedido en la URL
+            </p>
+          )}
         </div>
-
-        {/* Search Section */}
-        <Card className="card-gradient max-w-2xl mx-auto mb-8">
-          <CardContent className="p-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Número de pedido (ej: GT-2024-001234)"
-                  value={trackingNumber}
-                  onChange={(e) => setTrackingNumber(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              <Button onClick={handleSearch} size="lg" className="sm:w-auto">
-                <Search className="h-4 w-4 mr-2" />
-                Rastrear
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Order Details */}
         {orderData && (
@@ -344,23 +324,17 @@ const OrderTracking = () => {
         )}
 
         {/* No Order Found */}
-        {trackingNumber && !orderData && (
+        {orderNumber && !orderData && (
           <Card className="card-gradient max-w-2xl mx-auto">
             <CardContent className="text-center py-12">
               <Package className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">Pedido no encontrado</h3>
               <p className="text-muted-foreground mb-6">
-                No pudimos encontrar un pedido con ese número. Verifica que hayas ingresado el número correctamente.
+                No pudimos encontrar un pedido con el número: {orderNumber}
               </p>
-              <Button onClick={() => setTrackingNumber("")} variant="outline">
-                Intentar de nuevo
-              </Button>
             </CardContent>
           </Card>
         )}
-      </div>
-
-      <Footer />
     </div>
   );
 };
