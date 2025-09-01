@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { 
   Smartphone, 
   Laptop, 
@@ -96,11 +97,11 @@ const Categories = () => {
           {categories.map((category, index) => {
             const IconComponent = category.icon;
             return (
-              <Card
-                key={category.id}
-                className="group cursor-pointer card-gradient border-border/50 hover:shadow-secondary transition-smooth hover-lift animate-scale-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+              <Link key={category.id} to={`/category/${category.id}`}>
+                <Card
+                  className="group cursor-pointer card-gradient border-border/50 hover:shadow-secondary transition-smooth hover-lift animate-scale-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                 <CardContent className="p-6 text-center">
                   {/* Icon */}
                   <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${category.bgColor} flex items-center justify-center group-hover:scale-110 transition-bounce`}>
@@ -117,7 +118,8 @@ const Categories = () => {
                     {category.count} productos
                   </p>
                 </CardContent>
-              </Card>
+                </Card>
+              </Link>
             );
           })}
         </div>

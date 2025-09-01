@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { ArrowRight, Star, Flame, Gift, Zap } from "lucide-react";
 
 const Collections = () => {
@@ -123,9 +124,12 @@ const Collections = () => {
                   <Button
                     variant="outline"
                     className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-smooth"
+                    asChild
                   >
-                    Explorar Colección
-                    <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-smooth" />
+                    <Link to={collection.id === "offers" ? "/offers" : `/category/${collection.id === "bestsellers" ? "electronics" : collection.id === "trending" ? "computers" : collection.id === "flash" ? "electronics" : "electronics"}`}>
+                      Explorar Colección
+                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-smooth" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

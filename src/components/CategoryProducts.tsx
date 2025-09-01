@@ -1,5 +1,6 @@
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { ArrowRight, Smartphone, Laptop, Headphones, Watch } from "lucide-react";
 import { useState } from "react";
 
@@ -288,9 +289,12 @@ const CategoryProducts = () => {
             variant="outline" 
             size="lg" 
             className="text-lg px-8 py-4 h-auto hover:bg-primary hover:text-primary-foreground transition-smooth"
+            asChild
           >
-            Ver Todos en {activeTab?.name}
-            <ArrowRight className="h-5 w-5 ml-2" />
+            <Link to={`/category/${activeCategory}`}>
+              Ver Todos en {activeTab?.name}
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Link>
           </Button>
         </div>
       </div>
