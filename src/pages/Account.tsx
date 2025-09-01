@@ -201,30 +201,25 @@ const Account = () => {
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 gap-1">
-            <TabsTrigger value="profile" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-              <User className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Perfil</span>
-              <span className="sm:hidden">👤</span>
+            <TabsTrigger value="profile" className="flex items-center gap-2 text-xs sm:text-sm">
+              <User className="h-4 w-4" />
+              <span>Perfil</span>
             </TabsTrigger>
-            <TabsTrigger value="orders" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-              <Package className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Pedidos</span>
-              <span className="sm:hidden">📦</span>
+            <TabsTrigger value="orders" className="flex items-center gap-2 text-xs sm:text-sm">
+              <Package className="h-4 w-4" />
+              <span>Pedidos</span>
             </TabsTrigger>
-            <TabsTrigger value="addresses" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-              <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Direcciones</span>
-              <span className="sm:hidden">📍</span>
+            <TabsTrigger value="addresses" className="flex items-center gap-2 text-xs sm:text-sm">
+              <MapPin className="h-4 w-4" />
+              <span>Direcciones</span>
             </TabsTrigger>
-            <TabsTrigger value="favorites" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-              <Heart className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Favoritos</span>
-              <span className="sm:hidden">💝</span>
+            <TabsTrigger value="favorites" className="flex items-center gap-2 text-xs sm:text-sm">
+              <Heart className="h-4 w-4" />
+              <span>Favoritos</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-              <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Configuración</span>
-              <span className="sm:hidden">⚙️</span>
+            <TabsTrigger value="settings" className="flex items-center gap-2 text-xs sm:text-sm">
+              <Settings className="h-4 w-4" />
+              <span>Configuración</span>
             </TabsTrigger>
           </TabsList>
 
