@@ -200,24 +200,24 @@ const Account = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 gap-1">
-            <TabsTrigger value="profile" className="flex items-center gap-2 text-xs sm:text-sm">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 gap-1 bg-muted p-1 relative z-10">
+            <TabsTrigger value="profile" className="flex items-center gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground">
               <User className="h-4 w-4" />
               <span>Perfil</span>
             </TabsTrigger>
-            <TabsTrigger value="orders" className="flex items-center gap-2 text-xs sm:text-sm">
+            <TabsTrigger value="orders" className="flex items-center gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground">
               <Package className="h-4 w-4" />
               <span>Pedidos</span>
             </TabsTrigger>
-            <TabsTrigger value="addresses" className="flex items-center gap-2 text-xs sm:text-sm">
+            <TabsTrigger value="addresses" className="flex items-center gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground">
               <MapPin className="h-4 w-4" />
               <span>Direcciones</span>
             </TabsTrigger>
-            <TabsTrigger value="favorites" className="flex items-center gap-2 text-xs sm:text-sm">
+            <TabsTrigger value="favorites" className="flex items-center gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground">
               <Heart className="h-4 w-4" />
               <span>Favoritos</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 text-xs sm:text-sm">
+            <TabsTrigger value="settings" className="flex items-center gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground">
               <Settings className="h-4 w-4" />
               <span>Configuración</span>
             </TabsTrigger>
