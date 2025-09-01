@@ -1,5 +1,6 @@
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const FeaturedProducts = () => {
@@ -120,9 +121,11 @@ const FeaturedProducts = () => {
 
         {/* View All Button */}
         <div className="text-center animate-fade-in">
-          <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto">
-            Ver Todos los Productos
-            <ArrowRight className="h-5 w-5 ml-2" />
+          <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto" asChild>
+            <Link to="/search?q=">
+              Ver Todos los Productos
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Link>
           </Button>
         </div>
       </div>
