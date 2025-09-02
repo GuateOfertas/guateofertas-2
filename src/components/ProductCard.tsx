@@ -17,6 +17,7 @@ interface ProductCardProps {
   isNew?: boolean;
   isFeatured?: boolean;
   viewMode?: "grid" | "list";
+  UrlGo?: string;
 }
 
 const ProductCard = ({
@@ -31,6 +32,7 @@ const ProductCard = ({
   isNew,
   isFeatured,
   viewMode = "grid",
+  UrlGo
 }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -44,8 +46,10 @@ const ProductCard = ({
   };
 
 if (!isGrid) {
+  const productUrl = UrlGo ? `/producto/${id}/${UrlGo}` : `/producto/${id}`;
   return (
-    <Link to={`/producto/${id}`} className="block w-full">
+    
+    <Link to={productUrl} className="block w-full">
       <Card
         className="group flex flex-col md:flex-row gap-4 border border-border/40 p-4 rounded-md hover:shadow-md transition-shadow"
         onMouseEnter={() => setIsHovered(true)}
@@ -153,94 +157,88 @@ if (!isGrid) {
   );
 }
 
-
+const productUrl = UrlGo ? `/producto/${id}/${UrlGo}` : `/producto/${id}`;
   return (
-<Link to={`/producto/${id}`} className="block animate-fade-in duration-500">
-  <Card
-    className="group relative overflow-hidden border border-border/40 rounded-md shadow-sm hover:shadow-md transition-shadow"
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-  >
-    <CardContent className="p-2">
-      {/* Imagen cuadrada */}
-      <div className="relative w-full aspect-square overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          style={{ maxWidth: "300px", margin: "0 auto" }}
-        />
+<Link to={productUrl} className="block animate-fade-in duration-500">
+<Card
+  className="group relative w-[300px] h-[400px] border border-border/60 rounded-md shadow-sm hover:shadow-md transition-shadow"
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+>
+  <CardContent className="p-2">
+    <div className="relative w-full aspect-square overflow-hidden rounded-md">
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-full object-contain mx-auto transition-transform duration-500 group-hover:scale-105"
+        style={{ maxWidth: "200px", margin: "0 auto",  }}
+      />
 
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-          {isNew && (
-            <Badge className="bg-success text-success-foreground text-xs px-2 py-0.5">Nuevo</Badge>
-          )}
-          {isFeatured && (
-            <Badge className="primary-gradient text-primary-foreground text-xs px-2 py-0.5">Destacado</Badge>
-          )}
-          {discount && (
-            <Badge className="bg-destructive text-destructive-foreground text-xs px-2 py-0.5">
-              -{discount}%
-            </Badge>
-          )}
-        </div>
+      <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+        {isNew && (
+          <Badge className="bg-success text-success-foreground text-xs px-2 py-0.5">Nuevo</Badge>
+        )}
+        {isFeatured && (
+          <Badge className="primary-gradient text-primary-foreground text-xs px-2 py-0.5">Destacado</Badge>
+        )}
+        {discount && (
+          <Badge className="bg-destructive text-destructive-foreground text-xs px-2 py-0.5">
+            -{discount}%
+          </Badge>
+        )}
+      </div>
 
-        {/* Botón agregar al carrito flotante */}
-        <div
-          className={`absolute bottom-2 left-2 right-2 transition-all duration-300 ${
-            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-          }`}
+      <div
+        className={`absolute bottom-2 left-2 right-2 transition-all duration-300 ${
+          isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+        }`}
+      >
+        <Button
+          variant="cart"
+          size="sm"
+          className="w-full text-xs py-1"
+          onClick={(e) => {
+            e.preventDefault();
+          }}
         >
-          <Button
-            variant="cart"
-            size="sm"
-            className="w-full text-xs py-2"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <ShoppingCart className="h-4 w-4 mr-1" />
-            Agregar
-          </Button>
+          <ShoppingCart className="h-4 w-4 mr-1" />
+          Agregar
+        </Button>
+      </div>
+    </div>
+
+    <div className="pt-2 text-sm">
+      <h3 className="text-base font-bold mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+        {name}
+      </h3>
+
+      <div className="flex items-center gap-1 mb-1">
+        <div className="flex items-center">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`h-3 w-3 ${
+                i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"
+              }`}
+            />
+          ))}
         </div>
+        <span className="text-xs text-muted-foreground">({reviews})</span>
       </div>
 
-      {/* Información del producto */}
-      <div className="pt-3 text-sm">
-        <h3 className="font-medium mb-1 line-clamp-2 group-hover:text-primary transition-colors">
-          {name}
-        </h3>
-
-        {/* Rating */}
-        <div className="flex items-center gap-1 mb-1">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-3 w-3 ${
-                  i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground">({reviews})</span>
-        </div>
-
-        {/* Price */}
-        <div className="flex items-center gap-2">
-          <span className="text-base font-bold text-primary">
-            {formatPrice(price)}
+      <div className="flex items-center gap-2">
+        <span className="text-base font-bold text-primary">
+          {formatPrice(price)}
+        </span>
+        {originalPrice && (
+          <span className="text-xs line-through text-muted-foreground">
+            {formatPrice(originalPrice)}
           </span>
-          {originalPrice && (
-            <span className="text-xs line-through text-muted-foreground">
-              {formatPrice(originalPrice)}
-            </span>
-          )}
-        </div>
+        )}
       </div>
-    </CardContent>
-  </Card>
+    </div>
+  </CardContent>
+</Card>
 </Link>
   );
 };

@@ -112,11 +112,11 @@ const Newsletter = () => {
             <div className="mt-8 pt-8 border-t border-border/50">
               <div className="flex flex-wrap justify-center items-center gap-8 text-center">
                 <div>
-                  <div className="text-2xl font-bold text-primary">50K+</div>
+                  <div className="text-2xl font-bold text-primary">5K+</div>
                   <div className="text-sm text-muted-foreground">Suscriptores</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-secondary">95%</div>
+                  <div className="text-2xl font-bold text-secondary">90%</div>
                   <div className="text-sm text-muted-foreground">Satisfacción</div>
                 </div>
                 <div>

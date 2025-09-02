@@ -13,8 +13,8 @@ const Features = () => {
   const features = [
     {
       icon: Truck,
-      title: "Envío Gratis",
-      description: "En compras mayores a Q250 a todo Guatemala",
+      title: "todo el país",
+      description: "recibe tus productos en la puerta de tu casa desde cualquier parte del territorio nacional.",
       color: "text-primary"
     },
     {
@@ -26,7 +26,7 @@ const Features = () => {
     {
       icon: CreditCard,
       title: "Pagos Flexibles",
-      description: "Acepta tarjetas de crédito, débito y transferencias",
+      description: "Aceptamos tarjetas de crédito, débito y transferencias",
       color: "text-success"
     },
     {
@@ -35,18 +35,6 @@ const Features = () => {
       description: "Recibe tus productos en 24-48 horas",
       color: "text-warning"
     },
-    {
-      icon: RefreshCw,
-      title: "Devoluciones",
-      description: "30 días para cambios y devoluciones",
-      color: "text-destructive"
-    },
-    {
-      icon: Award,
-      title: "Garantía",
-      description: "Productos originales con garantía oficial",
-      color: "text-primary"
-    }
   ];
 
   return (

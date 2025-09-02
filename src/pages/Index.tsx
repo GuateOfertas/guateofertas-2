@@ -11,11 +11,11 @@ const Index = () => {
   return (
     <main>
       <OffersCarousel />
-      <Hero />
+      {/* <Hero /> */}
+      {/* <FeaturedProducts /> */}
+      <CategoryProducts />
       <Categories />
       <Collections />
-      <FeaturedProducts />
-      <CategoryProducts />
       <Newsletter />
       <Features />
     </main>

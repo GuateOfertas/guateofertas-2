@@ -45,19 +45,25 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
 
     const apiProducts = data[1];
 
-    // Evitar duplicados: usar ID único
-    const mapped = apiProducts.map((item: any) => ({
-      id: String(item.Id), // clave única
-      name: item.Nombre,
-      image: `https://www.media.guateofertas.com/ofertas/${item.image}`,
-      price: item.P_real,
-      originalPrice: item.P_precio || item.P_real,
-      rating: Math.random() * (5 - 3.5) + 3.5,
-      reviews: Math.floor(Math.random() * 200),
-      discount: Math.abs(Number(item.Descuento)) || 0,
-      isNew: false,
-      isFeatured: false,
-    }));
+const mapped = apiProducts.map((item: any) => {
+  const price = item.P_real;
+  const originalPrice = item.P_precio;
+
+  return {
+    id: String(item.Id),
+    name: item.Nombre,
+    image: `https://www.media.guateofertas.com/ofertas/${item.image}`,
+    price: price,
+    ...(originalPrice && originalPrice !== price && { originalPrice }),
+    ...(Number(item.Descuento) && Number(item.Descuento) !== 0 && { discount: Math.abs(Number(item.Descuento)) }),
+    rating: Math.random() * (5 - 3.5) + 3.5,
+    reviews: Math.floor(Math.random() * 200),
+    isNew: false,
+    isFeatured: false,
+    UrlGo: item.UrlGo 
+  };
+});
+
 
     if (reset) {
       setProducts(mapped);
@@ -133,7 +139,9 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
 
       {/* Filtros y búsqueda */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
-        <form onSubmit={handleSearch} className="flex-1 flex gap-2">
+
+        {/* solo es la parte del buscador  */}
+        {/* <form onSubmit={handleSearch} className="flex-1 flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -147,8 +155,10 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
           <Button type="submit" size="icon" variant="outline">
             <Search className="h-4 w-4" />
           </Button>
-        </form>
-        <Select value={sortBy} onValueChange={setSortBy}>
+        </form> */}
+
+        {/* Ordenar y vista */}
+        {/* <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Ordenar por" />
           </SelectTrigger>
@@ -159,7 +169,9 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
             <SelectItem value="discount">Mayor descuento</SelectItem>
             <SelectItem value="rating">Mejor valorados</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
+
+
         <div className="flex gap-1 border rounded-md p-1">
           <Button
             variant={viewMode === "grid" ? "default" : "ghost"}
@@ -184,7 +196,7 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
         <div
           className={
             viewMode === "grid"
-              ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+              ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5"
               : "space-y-4"
           }
         >
@@ -199,11 +211,11 @@ const loadProducts = useCallback(async (pageNum: number, reset = false) => {
         <div
           className={
             viewMode === "grid"
-              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6"
-              : "space-y-4 mt-6"
+               ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5"
+              : "space-y-4"
           }
         >
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 10}).map((_, i) => (
             <div key={i} className="space-y-3">
               <Skeleton className="h-48 w-full rounded-lg" />
               <Skeleton className="h-4 w-3/4" />
